@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: #f59e0b;
+    color: #08080a;
+  }
+
+  /* Scrollbar rapi */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0e0e12;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2a2a35;
+    border-radius: 999px;
+    border: 2px solid #0e0e12;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3d3d4d;
+  }
+}
+
+@layer components {
+  /* Masonry asli pakai CSS columns — ringan, tanpa JS layout */
+  .masonry {
+    column-gap: 1rem;
+  }
+  .masonry > * {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+
+  /* Shimmer saat gambar belum loaded */
+  .skeleton {
+    position: relative;
+    overflow: hidden;
+    background-color: #1b1b23;
+  }
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.06) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    animation: shimmer 1.6s infinite;
+  }
+  .is-loaded + .skeleton::after,
+  .skeleton.is-done::after {
+    display: none;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Saat lightbox terbuka, kunci scroll halaman */
+body.lb-open {
+  overflow: hidden;
+}

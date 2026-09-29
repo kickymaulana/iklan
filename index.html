@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galeri Iklan</title>
+  <meta name="description" content="Galeri iklan — koleksi materi promosi." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="dist/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><text y='20' font-size='20'>🖼️</text></svg>" />
+</head>
+<body class="min-h-screen bg-ink-950 font-sans text-gray-300 antialiased selection:bg-accent selection:text-ink-950">
+
+  <!-- ============ AMBIENT GLOW ============ -->
+  <div class="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+    <div class="absolute -top-1/4 left-1/2 h-[55vh] w-[55vh] -translate-x-1/2 rounded-full bg-accent/8 blur-[120px]"></div>
+    <div class="absolute bottom-0 right-0 h-[40vh] w-[40vh] translate-x-1/3 translate-y-1/3 rounded-full bg-accent-deep/6 blur-[100px]"></div>
+  </div>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="sticky top-0 z-40 border-b border-white/5 bg-ink-950/70 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
+      <a href="#" class="flex items-center gap-2.5 group">
+        <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-accent/10 text-lg ring-1 ring-accent/20 transition group-hover:bg-accent/20">🖼️</span>
+        <span class="text-sm font-bold tracking-tight text-white">Galeri Iklan</span>
+      </a>
+      <div class="flex items-center gap-3 text-xs text-gray-500">
+        <span id="nav-count" class="hidden sm:inline">— gambar</span>
+        <a href="#galeri" class="rounded-lg bg-white/5 px-3.5 py-2 font-medium text-gray-300 ring-1 ring-white/10 transition hover:bg-white/10 hover:text-white">Lihat Galeri</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <header class="relative z-10 px-5 pt-16 pb-12 sm:px-8 sm:pt-24 sm:pb-16">
+    <div class="mx-auto max-w-7xl">
+      <div class="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-accent/80 animate-fade-in">
+        <span class="h-px w-8 bg-accent/40"></span>
+        Koleksi Materi Promosi
+      </div>
+      <h1 class="mt-5 max-w-3xl text-4xl font-extrabold leading-[1.05] tracking-tight text-white text-balance animate-fade-up sm:text-6xl">
+        Galeri Iklan
+      </h1>
+      <p class="mt-5 max-w-xl text-base leading-relaxed text-gray-400 animate-fade-up sm:text-lg" style="animation-delay:.08s">
+        Kumpulan materi iklan dan promosi. Klik gambar untuk melihat tampilan penuh.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-gray-500 animate-fade-up" style="animation-delay:.16s">
+        <span class="flex items-center gap-2">
+          <span class="flex h-2 w-2 rounded-full bg-emerald-400"></span>
+          <span id="hero-count">9 gambar</span>
+        </span>
+        <span class="text-gray-700">•</span>
+        <span>Diperbarui 29 September 2026</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ GALERI ============ -->
+  <main id="galeri" class="relative z-10 px-5 pb-20 sm:px-8 sm:pb-28">
+    <div class="mx-auto max-w-7xl">
+
+      <!-- Section header -->
+      <div class="mb-8 flex items-end justify-between">
+        <h2 class="text-lg font-semibold text-white">Semua Gambar</h2>
+        <span class="text-xs text-gray-500" id="grid-count"></span>
+      </div>
+
+      <!-- Masonry grid -->
+      <div id="gallery-grid" class="masonry columns-2 sm:columns-3 lg:columns-4">
+        <!-- Cards di-render oleh JS -->
+      </div>
+
+      <!-- Empty state (hidden by default) -->
+      <div id="empty-state" class="hidden py-20 text-center">
+        <div class="text-4xl mb-3">📭</div>
+        <p class="text-gray-500">Belum ada gambar dalam galeri.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="relative z-10 border-t border-white/5 px-5 py-8 sm:px-8">
+    <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 text-xs text-gray-600 sm:flex-row">
+      <p>© 2026 Galeri Iklan. Semua hak cipta dilindungi.</p>
+      <p>Dibuat dengan Tailwind CSS</p>
+    </div>
+  </footer>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-ink-950/90 backdrop-blur-md" role="dialog" aria-modal="true" aria-label="Pratinjau gambar">
+    <!-- Close -->
+    <button id="lb-close" class="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-gray-300 ring-1 ring-white/15 transition hover:bg-white/20 hover:text-white" aria-label="Tutup">
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+    </button>
+
+    <!-- Prev -->
+    <button id="lb-prev" class="absolute left-3 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-gray-300 ring-1 ring-white/15 transition hover:bg-white/20 hover:text-white sm:left-6" aria-label="Sebelumnya">
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+    </button>
+
+    <!-- Next -->
+    <button id="lb-next" class="absolute right-3 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-gray-300 ring-1 ring-white/15 transition hover:bg-white/20 hover:text-white sm:right-6" aria-label="Berikutnya">
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+    </button>
+
+    <!-- Image container -->
+    <div id="lb-container" class="flex max-h-[88vh] max-w-[92vw] flex-col items-center" onclick="event.stopPropagation()">
+      <div class="relative flex items-center justify-center">
+        <div id="lb-skeleton" class="skeleton h-[60vh] w-[80vw] rounded-2xl sm:h-[70vh] sm:w-[60vw]"></div>
+        <img id="lb-image" class="hidden max-h-[88vh] max-w-[92vw] rounded-xl object-contain shadow-2xl" alt="" />
+      </div>
+      <div class="mt-4 flex items-center gap-4 text-sm text-gray-400">
+        <span id="lb-counter"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ================================================================
+    //  KONFIGURASI GAMBAR
+    //  Untuk menambah / mengubah gambar, cukup edit array di bawah.
+    //  format: { src: 'nama-file di folder images/', caption: 'judul' }
+    // ================================================================
+    const IMAGES = [
+      { src: 'WhatsApp Image 2026-09-29 at 07.43.38.jpeg',      caption: 'Iklan 01' },
+      { src: 'WhatsApp Image 2026-09-29 at 07.43.38 (1).jpeg', caption: 'Iklan 02' },
+      { src: 'WhatsApp Image 2026-09-29 at 07.43.38 (2).jpeg', caption: 'Iklan 03' },
+      { src: 'WhatsApp Image 2026-09-29 at 07.43.39.jpeg',      caption: 'Iklan 04' },
+      { src: 'WhatsApp Image 2026-09-29 at 07.43.39 (1).jpeg', caption: 'Iklan 05' },
+      { src: 'WhatsApp Image 2026-09-29 at 07.43.39 (2).jpeg', caption: 'Iklan 06' },
+      { src: 'WhatsApp Image 2026-09-29 at 07.43.40.jpeg',      caption: 'Iklan 07' },
+      { src: 'WhatsApp Image 2026-09-29 at 07.43.40 (1).jpeg', caption: 'Iklan 08' },
+      { src: 'WhatsApp Image 2026-09-29 at 07.43.40 (2).jpeg', caption: 'Iklan 09' },
+    ];
+
+    // ================================================================
+    //  RENDER GALERI
+    // ================================================================
+    const grid       = document.getElementById('gallery-grid');
+    const emptyState = document.getElementById('empty-state');
+    const navCount   = document.getElementById('nav-count');
+    const heroCount  = document.getElementById('hero-count');
+    const gridCount  = document.getElementById('grid-count');
+
+    function encodeSrc(name) {
+      return 'images/' + encodeURI(name);
+    }
+
+    function renderGallery() {
+      const total = IMAGES.length;
+      navCount.textContent  = total + ' gambar';
+      heroCount.textContent = total + ' gambar';
+      gridCount.textContent = total + ' foto';
+
+      if (total === 0) {
+        emptyState.classList.remove('hidden');
+        grid.classList.add('hidden');
+        return;
+      }
+
+      grid.innerHTML = IMAGES.map((img, i) => `
+        <figure class="group relative overflow-hidden rounded-2xl bg-ink-800 ring-1 ring-white/5 cursor-pointer animate-fade-up"
+                style="animation-delay:${i * 0.06}s"
+                onclick="openLightbox(${i})"
+                role="button"
+                tabindex="0"
+                aria-label="Buka ${img.caption}">
+          <div class="skeleton aspect-[3/4]"></div>
+          <img src="${encodeSrc(img.src)}"
+               alt="${img.caption}"
+               loading="lazy"
+               class="absolute inset-0 h-full w-full object-cover opacity-0 transition-all duration-500 group-hover:scale-[1.04]"
+               onload="this.classList.remove('opacity-0'); this.previousElementSibling.classList.add('is-done');"
+               onerror="this.parentElement.querySelector('.skeleton').classList.add('is-done');"
+          />
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950/80 via-ink-950/0 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+          <figcaption class="absolute bottom-0 left-0 right-0 flex items-center justify-between p-3.5 opacity-0 transition-all duration-300 group-hover:opacity-100">
+            <span class="text-sm font-medium text-white">${img.caption}</span>
+            <span class="flex h-7 w-7 items-center justify-center rounded-full bg-white/15 text-xs text-white ring-1 ring-white/20 backdrop-blur-sm">${i + 1}</span>
+          </figcaption>
+        </figure>
+      `).join('');
+    }
+
+    // ================================================================
+    //  LIGHTBOX
+    // ================================================================
+    const lb         = document.getElementById('lightbox');
+    const lbImg      = document.getElementById('lb-image');
+    const lbSkeleton = document.getElementById('lb-skeleton');
+    const lbCounter  = document.getElementById('lb-counter');
+    const lbClose    = document.getElementById('lb-close');
+    const lbPrev     = document.getElementById('lb-prev');
+    const lbNext     = document.getElementById('lb-next');
+
+    let currentIndex = 0;
+
+    function showImage(index) {
+      currentIndex = index;
+      lbImg.classList.add('hidden');
+      lbImg.classList.remove('opacity-0');
+      lbSkeleton.classList.remove('is-done');
+
+      const img = IMAGES[index];
+      lbImg.src = encodeSrc(img.src);
+      lbImg.alt = img.caption;
+      lbCounter.textContent = (index + 1) + ' / ' + IMAGES.length + ' — ' + img.caption;
+
+      lbImg.onload = () => {
+        lbSkeleton.classList.add('is-done');
+        lbImg.classList.remove('hidden');
+        lbImg.classList.add('animate-scale-in');
+      };
+    }
+
+    function openLightbox(index) {
+      lb.classList.remove('hidden');
+      lb.classList.add('flex', 'animate-fade-in');
+      document.body.classList.add('lb-open');
+      showImage(index);
+    }
+
+    function closeLightbox() {
+      lb.classList.add('hidden');
+      lb.classList.remove('flex', 'animate-fade-in');
+      document.body.classList.remove('lb-open');
+      lbImg.src = '';
+    }
+
+    function nextImg() {
+      showImage((currentIndex + 1) % IMAGES.length);
+    }
+
+    function prevImg() {
+      showImage((currentIndex - 1 + IMAGES.length) % IMAGES.length);
+    }
+
+    // Click backdrop to close
+    lb.addEventListener('click', (e) => {
+      if (e.target === lb) closeLightbox();
+    });
+
+    lbClose.addEventListener('click', closeLightbox);
+    lbNext.addEventListener('click', nextImg);
+    lbPrev.addEventListener('click', prevImg);
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (lb.classList.contains('hidden')) return;
+      switch (e.key) {
+        case 'Escape': closeLightbox(); break;
+        case 'ArrowRight': nextImg(); break;
+        case 'ArrowLeft': prevImg(); break;
+      }
+    });
+
+    // Keyboard enter on gallery cards
+    grid.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        const fig = e.target.closest('figure');
+        if (fig) {
+          e.preventDefault();
+          fig.click();
+        }
+      }
+    });
+
+    // Touch swipe (mobile)
+    let touchStartX = 0;
+    lb.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', (e) => {
+      const diff = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(diff) > 50) {
+        diff > 0 ? prevImg() : nextImg();
+      }
+    }, { passive: true });
+
+    // INIT
+    renderGallery();
+  </script>
+</body>
+</html>

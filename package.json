@@ -1,0 +1,1 @@
+{ "name": "iklan-gallery", "private": true, "version": "1.0.0", "devDependencies": { "tailwindcss": "^3.4.17" } }
