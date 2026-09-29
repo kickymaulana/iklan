@@ -107,9 +107,10 @@
 
     <!-- Image container -->
     <div id="lb-container" class="flex max-h-[88vh] max-w-[92vw] flex-col items-center" onclick="event.stopPropagation()">
-      <div class="relative flex items-center justify-center">
-        <div id="lb-skeleton" class="skeleton h-[60vh] w-[80vw] rounded-2xl sm:h-[70vh] sm:w-[60vw]"></div>
-        <img id="lb-image" class="hidden max-h-[88vh] max-w-[92vw] rounded-xl object-contain shadow-2xl" alt="" />
+      <!-- Gambar di tengah, skeleton jadi lapisan di belakangnya -->
+      <div class="relative flex min-h-[60vh] min-w-[70vw] items-center justify-center sm:min-h-[75vh] sm:min-w-[55vw]">
+        <div id="lb-skeleton" class="skeleton absolute inset-0 rounded-2xl"></div>
+        <img id="lb-image" class="relative max-h-[88vh] max-w-[92vw] rounded-xl object-contain opacity-0 shadow-2xl transition-opacity duration-200" alt="" />
       </div>
       <div class="mt-4 flex items-center gap-4 text-sm text-gray-400">
         <span id="lb-counter"></span>
@@ -199,8 +200,10 @@
 
     function showImage(index) {
       currentIndex = index;
-      lbImg.classList.add('hidden');
-      lbImg.classList.remove('opacity-0');
+
+      // Sembunyikan gambar dulu & tampilkan skeleton saat memuat
+      lbImg.classList.add('opacity-0');
+      lbImg.classList.remove('animate-scale-in');
       lbSkeleton.classList.remove('is-done');
 
       const img = IMAGES[index];
@@ -210,7 +213,7 @@
 
       lbImg.onload = () => {
         lbSkeleton.classList.add('is-done');
-        lbImg.classList.remove('hidden');
+        lbImg.classList.remove('opacity-0');
         lbImg.classList.add('animate-scale-in');
       };
     }

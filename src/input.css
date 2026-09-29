@@ -50,6 +50,7 @@
     position: relative;
     overflow: hidden;
     background-color: #1b1b23;
+    transition: opacity 0.25s ease;
   }
   .skeleton::after {
     content: '';
@@ -64,7 +65,10 @@
     );
     animation: shimmer 1.6s infinite;
   }
-  .is-loaded + .skeleton::after,
+  /* Selesai dimuat: skeleton hilang total */
+  .skeleton.is-done {
+    opacity: 0;
+  }
   .skeleton.is-done::after {
     display: none;
   }
